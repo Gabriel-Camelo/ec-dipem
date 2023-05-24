@@ -1,0 +1,46 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type Query {
+  # A query for retrieving a user's information by email
+  getUser(email: String!): User!
+}
+
+type Mutation {
+  # A mutation for logging in and generating a token
+  login(email: String!, password: String!): AuthPayload!
+
+  # A mutation for sending a reset password email
+  forgotPassword(email: String!): Boolean!
+
+  # A mutation for resetting the user's password
+  resetPassword(token: String!, password: String!): Boolean!
+}
+
+"""
+
+Este schema define três tipos: User, AuthPayload, Query e Mutation.
+
+User representa um usuário e possui os campos id, name, email e password.
+
+AuthPayload é um tipo que contém um token de autenticação e informações do User autenticado.
+
+Query define uma consulta getUser que retorna um usuário com base em seu email.
+
+Mutation define três mutações:
+
+    login: autentica o usuário com o email e password fornecidos e retorna um AuthPayload com o token de autenticação e informações do User autenticado.
+    forgotPassword: envia um email para o email fornecido com um link para redefinir a senha.
+    resetPassword: redefinir a senha para o User com base no token fornecido e atualiza o campo password com a nova senha. Retorna true se a senha foi redefinida com sucesso.
+
+"""
+
